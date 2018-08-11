@@ -1,7 +1,7 @@
 TENANT=t1
 APP.NAME=hello
 APP.NAMESPACE=$(APP.NAME)-$(TENANT)
-APP.MS.NAME=name
+APP.MS.NAME=phone
 APP.MS.VERSION=$(shell cat version.txt)
 APP.MS.IMAGE=sndemo/$(APP.MS.NAME)
 RELEASE=$(APP.NAME).$(APP.MS.NAME)
