@@ -33,7 +33,7 @@ spec:
       labels:
         app: hello
         ms: phone
-        version: v1
+        version: v2
     spec:
       containers:
       - env:
@@ -44,8 +44,8 @@ spec:
         - name: SERVICE_NAME
           value: phone
         - name: VERSION
-          value: v1
-        image: sndemo/phone:v1
+          value: v2
+        image: sndemo/phone:v2
         imagePullPolicy: IfNotPresent
         name: phone
         ports:
