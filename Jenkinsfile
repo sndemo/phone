@@ -3,6 +3,7 @@ parameters {
 	string(defaultValue: 'Test', description: '', name: 'AppName')
 	string(defaultValue: '80', description: '', name: 'AppPort')
 	string(defaultValue: 'micro-system', description: '', name: 'NameSpace')
+	string(defaultValue: 'helm-cred-repo-id', description: '', name: 'HelmCredId')
 }
 podTemplate(
     label: 'mypod', 
@@ -31,10 +32,6 @@ podTemplate(
 {
     node('mypod') {
         def commitId
-		stage ('Cleanup Workspace') {
-			sh 'chmod 777 -R .'
-			sh 'rm -rf *'
-		}
         stage ('Extract') {
             checkout scm
             commitId = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
@@ -43,9 +40,8 @@ podTemplate(
 				doGenerateSubmoduleConfigurations: false, 
 				extensions: [[$class: 'CleanCheckout'],[$class: 'RelativeTargetDirectory', relativeTargetDir: 'install']], 
 				submoduleCfg: [], 
-				userRemoteConfigs: [[credentialsId: 'hello-1544713136092', url: 'https://bitbucket.org/hclswz/devops-mgmt.git']]
+				userRemoteConfigs: [[credentialsId: "${params.HelmCredId}", url: 'https://bitbucket.org/hclswz/devops-mgmt.git']]
 			])
-			
 			sh 'ls -ltr'
         }
 		stage ('UnitTest') {
