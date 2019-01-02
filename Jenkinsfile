@@ -45,7 +45,7 @@ podTemplate(
 			sh 'ls -ltr'
         }
 		stage ('UnitTest') {
-		    sh 'sleep 1m'
+		    sh 'sleep 15s'
 		}
         def repository
         stage ('Docker') {
@@ -59,7 +59,7 @@ podTemplate(
         stage ('Deploy') {
             container ('helm') {
                 sh "helm init --client-only --skip-refresh"
-                sh "helm upgrade --install --namespace ${params.NameSpace} --wait --set service.port=${params.AppPort},service.name=${params.AppName},image.repository=${params.RegistryURL}${params.AppName},image.tag=${env.BUILD_NUMBER} ${params.AppName} install/base/install/helm"
+                sh "helm upgrade --install --namespace ${params.NameSpace} --wait --set service.port=${params.AppPort},service.name=${params.AppName},image.repository=${params.RegistryURL}${params.AppName},image.tag=${env.BUILD_NUMBER} ${params.AppName} install/base/install/helm -f Values.yaml"
 			}
         }
     }
