@@ -20,7 +20,7 @@ spec:
   selector:
     matchLabels:
       app: {{ .Values.app.name }}
-  replicas: {{ .Values.app.ms.replicas }} 
+  replicas: {{ .Values.app.replicas }} 
   template:
     metadata:
       labels:
