@@ -15,7 +15,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.app.name }}
+  name: {{ .Values.app.name }}-{{ .Values.app.version }}
 spec:
   selector:
     matchLabels:
